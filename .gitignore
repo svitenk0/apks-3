@@ -1,0 +1,13 @@
+# результати симуляції та синтезу
+build/
+*.vcd
+*.vvp
+*.fst
+
+# IDE / Python
+.idea/
+.venv/
+__pycache__/
+
+# звіт (формується локально)
+report/
