@@ -249,26 +249,26 @@ def main(freqs=("100000", "400000")):
             draw(d, [R("rst_n", "rst_n"), R("cmd_start", "cmd_start"), R("busy", "busy"),
                      R("state", "state", "state"), R("tx_data", "tx_data", "hex"), R("tx_req", "tx_req"),
                      R("SCL", "scl"), R("SDA", "sda"), R("ack_err", "ack_err"), R("done", "done")],
-                 a - pad, b + 3, f"Рис. А — T1: запис 5 байтів (ptr 0x02, DE AD BE EF) у пристрій 0x50, SCL = {khz} кГц",
+                 a - pad, b + 3, f"T1: запис 5 байтів (ptr 0x02, DE AD BE EF) у пристрій 0x50, SCL = {khz} кГц",
                  IMG / "wave_write.png")
             # 2. START + адресний байт (зум)
             draw(d, [R("state", "state", "state"), R("phase", "phase", "dec"), R("qtick", "qtick"),
                      R("u_tx.shreg", "tx_shreg", "hex"), R("scl_oe (DUT)", "scl_oe"), R("sda_oe (DUT)", "sda_oe"),
                      R("SCL", "scl"), R("SDA", "sda"), R("slave sda_low", "s_sda_low")],
-                 a - 3, a + 102, f"Рис. Б — START, адреса 0x50 + W і ACK веденого (фази 0–3 кожного такту SCL)",
+                 a - 3, a + 102, f"START, адреса 0x50 + W і ACK веденого (фази 0–3 кожного такту SCL)",
                  IMG / "wave_start_addr.png")
             # 3. читання (T2, друга транзакція пари)
             a, b = tr[2]
             draw(d, [R("busy", "busy"), R("state", "state", "state"), R("SCL", "scl"), R("SDA", "sda"),
                      R("slave sda_low", "s_sda_low"), R("sda_oe (DUT)", "sda_oe"), R("rx_valid", "rx_valid"),
                      R("rx_data", "rx_data", "hex"), R("done", "done")],
-                 a - 3, b + 3, f"Рис. В — T2: читання 4 байтів із 0x50 (майстер: ACK, ACK, ACK, NACK)",
+                 a - 3, b + 3, f"T2: читання 4 байтів із 0x50 (майстер: ACK, ACK, ACK, NACK)",
                  IMG / "wave_read.png")
             # 4. NACK (T4)
             a, b = tr[5]
             draw(d, [R("cmd_start", "cmd_start"), R("busy", "busy"), R("state", "state", "state"),
                      R("SCL", "scl"), R("SDA", "sda"), R("ack_err", "ack_err"), R("done", "done")],
-                 a - 3, b + 3, "Рис. Г — T4: звернення до відсутньої адреси 0x23 -> NACK, ack_err = 1, STOP",
+                 a - 3, b + 3, "T4: звернення до відсутньої адреси 0x23 -> NACK, ack_err = 1, STOP",
                  IMG / "wave_nack.png")
             # 5. clock stretching (T5): перший такт після ACK адреси
             a, b = tr[6]
@@ -276,13 +276,13 @@ def main(freqs=("100000", "400000")):
             t_ack = rises[8]
             draw(d, [R("state", "state", "state"), R("phase", "phase", "dec"), R("scl_oe (DUT)", "scl_oe"),
                      R("slave scl_low", "s_scl_low"), R("stretch", "stretch"), R("SCL", "scl"), R("SDA", "sda")],
-                 t_ack - 8, t_ack + 40, "Рис. Д — T5: clock stretching — ведений утримує SCL = 0 10 мкс, генератор фаз чекає",
+                 t_ack - 8, t_ack + 40, "T5: clock stretching — ведений утримує SCL = 0 10 мкс, генератор фаз чекає",
                  IMG / "wave_stretch.png", notes=[(t_ack + 6, "stretch = 1: qtick заблоковано")])
         else:
             a, b = tr[2]
             draw(d, [R("busy", "busy"), R("state", "state", "state"), R("SCL", "scl"), R("SDA", "sda"),
                      R("rx_valid", "rx_valid"), R("rx_data", "rx_data", "hex")],
-                 a - 1, b + 1, f"Рис. Е — Fast-mode {khz} кГц: читання 4 байтів (DE AD BE EF)",
+                 a - 1, b + 1, f"Fast-mode {khz} кГц: читання 4 байтів (DE AD BE EF)",
                  IMG / "wave_read_400k.png")
 
 
